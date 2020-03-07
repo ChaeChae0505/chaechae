@@ -1,0 +1,311 @@
+import RPi.GPIO as GPIO 
+
+import time 
+
+#time.sleep(5) 
+
+GPIO.setmode(GPIO.BCM) 
+
+GPIO.setup(26, GPIO.OUT) 
+
+GPIO.setup(19, GPIO.OUT) 
+
+GPIO.setup(13, GPIO.OUT) 
+
+GPIO.setup(6, GPIO.OUT) 
+
+GPIO.setup(5, GPIO.OUT) 
+
+GPIO.setup(22, GPIO.OUT) 
+
+GPIO.setup(27, GPIO.OUT) 
+
+GPIO.setup(17, GPIO.OUT) 
+
+GPIO.output(6, False) 
+
+GPIO.output(13, False) 
+
+GPIO.output(19, False) 
+
+GPIO.output(26, False) 
+
+GPIO.output(5, False) 
+
+GPIO.output(17, False) 
+
+GPIO.output(27, False) 
+
+GPIO.output(22, False) 
+
+  
+
+def mode(): 
+
+    GPIO.output(6, False) 
+
+    GPIO.output(13, False) 
+
+    GPIO.output(19, False) 
+
+    GPIO.output(26, False) 
+
+    GPIO.output(5, False) 
+
+    GPIO.output(17, False) 
+
+    GPIO.output(27, False) 
+
+    GPIO.output(22, False) 
+
+def front(): 
+
+    GPIO.output(6, False) 
+
+    GPIO.output(13, False) 
+
+    GPIO.output(19, False) 
+
+    GPIO.output(26, False) 
+
+    GPIO.output(5, False) 
+
+    GPIO.output(17, False) 
+
+    GPIO.output(27, False) 
+
+    GPIO.output(22, True) 
+
+def back(): 
+
+    GPIO.output(6, False) 
+
+    GPIO.output(13, False) 
+
+    GPIO.output(19, False) 
+
+    GPIO.output(26, False) 
+
+    GPIO.output(5, False) 
+
+    GPIO.output(17, False) 
+
+    GPIO.output(27, True) 
+
+    GPIO.output(22, False) 
+
+  
+
+def front2(): 
+
+    GPIO.output(6, False) 
+
+    GPIO.output(13, True) 
+
+    GPIO.output(19, False) 
+
+    GPIO.output(26, False) 
+
+    GPIO.output(5, False) 
+
+    GPIO.output(17, False) 
+
+    GPIO.output(27, False) 
+
+    GPIO.output(22, False) 
+
+def back2(): 
+
+    GPIO.output(6,True) 
+
+    GPIO.output(13, False) 
+
+    GPIO.output(19, False) 
+
+    GPIO.output(26, False) 
+
+    GPIO.output(5, False) 
+
+    GPIO.output(17, False) 
+
+    GPIO.output(27, False) 
+
+    GPIO.output(22, False) 
+
+def right(): 
+
+    GPIO.output(6, False) 
+
+    GPIO.output(13, False) 
+
+    GPIO.output(19, False) 
+
+    GPIO.output(26, False) 
+
+    GPIO.output(5, False) 
+
+    GPIO.output(17, True) 
+
+    GPIO.output(27, False) 
+
+    GPIO.output(22, False) 
+
+  
+
+def left(): 
+
+    GPIO.output(6, False) 
+
+    GPIO.output(13, False) 
+
+    GPIO.output(19, False) 
+
+    GPIO.output(26, False) 
+
+    GPIO.output(5, True) 
+
+    GPIO.output(17, False) 
+
+    GPIO.output(27, False) 
+
+    GPIO.output(22, False) 
+
+  
+
+def CW(): 
+
+    GPIO.output(6, False) 
+
+    GPIO.output(13, False) 
+
+    GPIO.output(19, False) 
+
+    GPIO.output(26, True) 
+
+    GPIO.output(5, False) 
+
+    GPIO.output(17, False) 
+
+    GPIO.output(27, False) 
+
+    GPIO.output(22, False) 
+
+  
+
+def CCW(): 
+
+    GPIO.output(6, False) 
+
+    GPIO.output(13, False) 
+
+    GPIO.output(19,True) 
+
+    GPIO.output(26, False) 
+
+    GPIO.output(5, False) 
+
+    GPIO.output(17, False) 
+
+    GPIO.output(27, False) 
+
+    GPIO.output(22, False) 
+
+  
+
+  
+
+def s1(): 
+
+    GPIO.output(6, True) 
+
+    GPIO.output(13, False) 
+
+    GPIO.output(19, True) 
+
+    GPIO.output(26, False) 
+
+    GPIO.output(5, True) 
+
+    GPIO.output(17, False) 
+
+    GPIO.output(27, True) 
+
+    GPIO.output(22, False) 
+
+     
+
+def s2(): 
+
+    GPIO.output(6, False) 
+
+    GPIO.output(13, False) 
+
+    GPIO.output(19, False) 
+
+    GPIO.output(26, True) 
+
+    GPIO.output(5, True) 
+
+    GPIO.output(17, False) 
+
+    GPIO.output(27, True) 
+
+    GPIO.output(22, True) 
+
+def s3(): 
+
+    GPIO.output(6, True) 
+
+    GPIO.output(13, True) 
+
+    GPIO.output(19, False) 
+
+    GPIO.output(26, False) 
+
+    GPIO.output(5, True) 
+
+    GPIO.output(17, True) 
+
+    GPIO.output(27, False) 
+
+    GPIO.output(22, False) 
+
+     
+
+# 
+
+#back() 
+
+#time.sleep(1) 
+
+#mode() 
+
+#time.sleep(5) 
+
+#back() 
+
+#time.sleep(1) 
+
+#back2() 
+
+#time.sleep(1) 
+
+#right() 
+
+#tim0e.sleep(1) 
+
+#left() 
+
+#time.sleep(1) 
+
+#CW() 
+
+#time.sleep(1) 
+
+#CCW() 
+
+s1() 
+
+time.sleep(1) 
+
+mode() 
