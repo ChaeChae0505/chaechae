@@ -1,0 +1,625 @@
+# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Python package
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.5, 3.6, 3.7, 3.8]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Lint with flake8
+      run: |
+        pip install flake8
+        # stop the build if there are Python syntax errors or undefined names
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+    - name: Test with pytest
+      run: |
+        pip install pytest
+        pytest
+        
+        
+import cv2 
+
+import numpy as np 
+
+from picamera import PiCamera 
+
+import time 
+
+import RPi.GPIO as GPIO 
+
+import gggg as g 
+
+ #time.sleep(5) 
+
+Frame_Width  = 640 
+
+Frame_Height = 480 
+
+g.mode() 
+
+while True: 
+
+    cap = cv2.VideoCapture(-1) 
+
+    _, frame = cap.read() 
+
+    blured_frame = cv2.GaussianBlur(frame, (5, 5), 0) 
+
+    hsv = cv2.cvtColor(blured_frame, cv2.COLOR_BGR2HSV) 
+
+    lower_blue = np.array([36, 130, 46]) 
+
+    upper_blue = np.array([100, 255, 255]) 
+
+    mask = cv2.inRange(hsv, lower_blue, upper_blue) 
+
+    _, contours, _ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE) 
+
+    center = None 
+
+    centerList = [] 
+
+    # 반복문 시작 
+
+    for cnt in contours: 
+
+        ((x, y), radius) = cv2.minEnclosingCircle(cnt) 
+
+        M = cv2.moments(cnt) 
+
+        center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"])) 
+
+        centerList.append(center) 
+
+               # process every frame 
+
+        cv2.circle(frame, (int(x), int(y)), int(radius) ,(0, 255, 255), 2) 
+
+        cv2.circle(frame, center, 5, (0, 0, 255), -1) 
+
+   
+
+        print(x,y) 
+
+        print(centerList) 
+
+        cv2.imshow("Frame", frame) 
+
+        cv2.imshow("mask", mask) 
+
+        key = cv2.waitKey(1000) 
+
+     
+
+    flo = centerList[0][1] 
+
+    a = 5#front back  
+
+    wi = 150 #ri left 
+
+    aim=centerList.pop() 
+
+    print('aim',aim) 
+
+    print('flo',flo) 
+
+    x = aim[0] 
+
+    y = flo - aim[1] 
+
+    print('y',y) 
+
+    if aim[0] > Frame_Width/2: 
+
+        print('right') 
+
+        ri = (x-Frame_Width/2)/wi 
+
+  
+
+        print('ri',ri) 
+
+            #g.stop() 
+
+            #time.sleep(1) 
+
+        g.mode() 
+
+        time.sleep(1) 
+
+        if y >= 80: 
+
+            print('3') 
+
+            g.s3() 
+
+            time.sleep(2) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.front() 
+
+            time.sleep(a) 
+
+            g.right() 
+
+            time.sleep(ri) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.back() 
+
+            time.sleep(a) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.CW() 
+
+            time.sleep(0.58) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.front2() 
+
+            time.sleep(b) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.back2() 
+
+            time.sleep(b) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.CCW() 
+
+            time.sleep(0.7) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.left() 
+
+            time.sleep(ri) 
+
+            g.mode() 
+
+        elif y >= 30: 
+
+            print('2') 
+
+            g.s2() 
+
+            time.sleep(2) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.front() 
+
+            time.sleep(a) 
+
+            g.right() 
+
+            time.sleep(ri) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.back() 
+
+            time.sleep(a) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.s3() 
+
+            time.sleep(2) 
+
+            g.CW() 
+
+            time.sleep(0.58) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.front2() 
+
+            time.sleep(b) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.back2() 
+
+            time.sleep(b) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.CCW() 
+
+            time.sleep(0.7) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.left() 
+
+            time.sleep(ri) 
+
+            g.mode() 
+
+        elif y < 30: 
+
+            print('1') 
+
+            g.s1() 
+
+            time.sleep(2) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.front() 
+
+            time.sleep(a) 
+
+            g.right() 
+
+            time.sleep(ri) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.back() 
+
+            time.sleep(a) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.s3() 
+
+            time.sleep(2) 
+
+            g.CW() 
+
+            time.sleep(0.58) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.front2() 
+
+            time.sleep(b) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.back2() 
+
+            time.sleep(b) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.CCW() 
+
+            time.sleep(0.7) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.left() 
+
+            time.sleep(ri) 
+
+            g.mode() 
+
+            GPIO.cleanup() 
+
+    elif aim[0] < Frame_Width/2 : #turnLeft_Area Set 
+
+        print('left') 
+
+        le = (Frame_Width/2-x)/wi 
+
+        print('how long time:', le) 
+
+            
+
+            #g.stop() 
+
+            #time.sleep(1) 
+
+        g.mode() 
+
+        time.sleep(0.1) 
+
+        if y >= 80: 
+
+            print('3') 
+
+            g.s3() 
+
+            time.sleep(2) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.front() 
+
+            time.sleep(a) 
+
+            g.left() 
+
+            time.sleep(le) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.back() 
+
+            time.sleep(a) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.CCW() 
+
+            time.sleep(0.7) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.front2() 
+
+            time.sleep(b) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.back2() 
+
+            time.sleep(b) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.CW() 
+
+            time.sleep(0.58) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.right() 
+
+            time.sleep(le) 
+
+            g.mode() 
+
+        elif y >= 30: 
+
+            print('2') 
+
+            g.s2() 
+
+            time.sleep(2) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.front() 
+
+            time.sleep(a) 
+
+            g.left() 
+
+            time.sleep(le) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.back() 
+
+            time.sleep(a) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.s3() 
+
+            time.sleep(2) 
+
+            g.CCW() 
+
+            time.sleep(0.7) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.front2() 
+
+            time.sleep(b) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.back2() 
+
+            time.sleep(b) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.CW() 
+
+            time.sleep(0.58) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.right() 
+
+            time.sleep(le) 
+
+            g.mode() 
+
+        elif y < 30: 
+
+            print('1') 
+
+            g.s1() 
+
+            time.sleep(2) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.front() 
+
+            time.sleep(a) 
+
+            g.left() 
+
+            time.sleep(le) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.back() 
+
+            time.sleep(a) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.s3() 
+
+            time.sleep(2) 
+
+            g.CCW() 
+
+            time.sleep(0.7) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.front2() 
+
+            time.sleep(b) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.back2() 
+
+            time.sleep(b) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.CW() 
+
+            time.sleep(0.58) 
+
+            g.mode() 
+
+            time.sleep(1) 
+
+            g.right() 
+
+            time.sleep(le) 
+
+            g.mode() 
+
+            GPIO.cleanup()             
+
+    ## 반복문 종료 
+
+    cap.release() 
+
+     
+
+    cv2.destroyAllWindows() 
+
+     
+
+    
+
+    if key == ('q'): 
+
+        break 
